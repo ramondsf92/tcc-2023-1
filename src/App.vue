@@ -3,7 +3,7 @@ import { ref, computed } from 'vue'
 import LoginForm from './components/LoginForm.vue';
 import Home from './components/Home.vue'
 
-const preenchido = ref(true)
+// const preenchido = ref(true)
 
 const loginList = ref([{
   name: 'Ramon',
