@@ -30,8 +30,9 @@
   #app {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
-    grid-template-rows: 100px 80% 100px;
-    grid-template-areas: 
+    grid-template-rows: repeat(3, 1fr);
+    /* grid-template-rows: 100px 80% 10%; */
+    grid-template-areas:
       "header header  header  header"
       ".      main     main   ."
       "footer footer  footer  footer";

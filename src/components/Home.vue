@@ -1,16 +1,19 @@
 <script setup>
 import { ref } from 'vue'
-import AttributesList from './AttributesList.vue';
 import NewPreference from './NewPreference.vue'
+import CitySuggestion from './CitySuggestion.vue'
 import { users } from './state/user'
 
+// Lista de usuários que possui login está no array LoginList em App.vue
 const props = defineProps({
     'loggedUser': Object
 })
 
+
 const newSuggOpt = ref(false)
 const checkSuggOpt = ref(false)
 
+const enableCitySugg = ref(false)
 const prefObj = ref({})
 
 function checkRecomendacao() {
@@ -21,6 +24,9 @@ function checkRecomendacao() {
     }
     else {
         prefObj.value = usuario.preferencias
+    }
+    if (prefObj.value != {}) {
+        enableCitySugg.value = true
     }
 }
 
@@ -37,7 +43,7 @@ function checkRecomendacao() {
                 <button @click="newSuggOpt = true">NOVA RECOMENDAÇÃO</button>
             </div>
             <div id="check-sugg-opt">
-                <button :disabled="prefObj == {}">SUGERIR CIDADES</button>
+                <button :disabled="!enableCitySugg" @click="checkSuggOpt = true">SUGERIR CIDADES</button>
             </div>
         </div>
     </div>
@@ -45,6 +51,8 @@ function checkRecomendacao() {
         <NewPreference :user="loggedUser" v-if="newSuggOpt" @save-pref="checkRecomendacao()" />
     </div>
     <div id="suggest-city-window">
-
+        <CitySuggestion :user="loggedUser" v-if="checkSuggOpt" />
     </div>
 </template>
+
+<style scoped></style>

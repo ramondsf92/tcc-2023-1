@@ -37,11 +37,18 @@ function salvarPreferencia(v) {
     emit('savePref')
 }
 
+function verificarVazio() {
+    if (valores.value.custoImovel == 0 || valores.value.custoVida == 0 || valores.value.tipoCidade == "") {
+        return true
+    }
+    return false
+}
+
 </script>
 
 <template>
     <div>
-        <p>Selecione os valores das características em grau de importância de 1 a 5. {{ valores }}</p>
+        <p>Selecione os valores das características em grau de importância de 1 a 5.</p>
         <ul>
             <li>Custo do imóvel
                 <select id="select-custo-imovel" v-model="valores.custoImovel">
@@ -69,7 +76,7 @@ function salvarPreferencia(v) {
                 </select>
             </li>
         </ul>
-        <button id="salvar" @click="salvarPreferencia(valores)">Salvar</button>
+        <button :disabled="verificarVazio()" id="salvar" @click="salvarPreferencia(valores)">Salvar</button>
     </div>
 </template>
 
