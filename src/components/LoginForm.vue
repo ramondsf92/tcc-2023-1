@@ -6,24 +6,22 @@ const emit = defineEmits(['checkLogin'])
 
 </script>
 
-<template>   
-<strong>Bem-vindo! Por favor, faça seu login para continuar.</strong> 
-<div class="form">
-    <label for="email">E-mail </label>
-    <input type="text" v-model="userForm.email">
-    <label for="password">Senha </label>
-    <input type="password" v-model="userForm.password"><br>
-    <button @click="$emit('checkLogin', userForm)">Login</button>
-</div>
-<div id="not-registered">
-    <small>Ainda não é registrado? Clique aqui e faça seu cadastro.</small>
-</div>
+<template>
+    <strong>Bem-vindo! Por favor, faça seu login para continuar.</strong><br>
+    <small>Login para teste: ramon@123.com / Senha: 1234</small>
+    <div class="form">
+        <label for="email">E-mail </label>
+        <input type="text" v-model="userForm.email">
+        <label for="password">Senha </label>
+        <input type="password" v-model="userForm.password"><br>
+        <button @click="$emit('checkLogin', userForm)">Login</button>
+    </div>
+    <div id="not-registered">
+        <small>Ainda não é registrado? Clique aqui e faça seu cadastro.</small>
+    </div>
 </template>
 
 <style scoped>
-
-
-
 .form {
     display: flex;
     flex-direction: column;
@@ -34,5 +32,4 @@ const emit = defineEmits(['checkLogin'])
 .form>input {
     padding-bottom: 5px;
 }
-
 </style>
