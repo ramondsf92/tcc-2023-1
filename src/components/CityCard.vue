@@ -33,13 +33,6 @@ const imgExibida = ref(0)
                 Educação: {{ props.cityObj.educacao }}<br>
             </div>
         </div>
-        <div id="city-set-bookmark">
-            Clique para marcar como favorito
-        </div>
-        <div id="city-nav-buttons">
-            <button>SUGESTÃO ANTERIOR</button>
-            <button>PRÓXIMA SUGESTÃO</button>
-        </div>
     </div>
 </template>
 

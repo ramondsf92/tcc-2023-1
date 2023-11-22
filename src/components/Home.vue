@@ -12,6 +12,7 @@ const props = defineProps({
 
 const newSuggOpt = ref(false)
 const checkSuggOpt = ref(false)
+const viewBookmarks = ref(false)
 
 const enableCitySugg = ref(false)
 const prefObj = ref({})
@@ -35,7 +36,7 @@ function checkRecomendacao() {
 <template>
     <div class="home-options">
         <h1>Bem-vindo {{ props.loggedUser.name }}</h1>
-        <div v-if="!newSuggOpt && !checkSuggOpt">
+        <div id="home-container" v-if="!newSuggOpt && !checkSuggOpt && !viewBookmarks">
             <div>
                 Suas recomendações: {{ prefObj }}
             </div>
@@ -45,14 +46,29 @@ function checkRecomendacao() {
             <div id="check-sugg-opt">
                 <button :disabled="!enableCitySugg" @click="checkSuggOpt = true">SUGERIR CIDADES</button>
             </div>
+            <div id="city-bookmark-opt">
+                <button @click="() => viewBookmarks = true">VER FAVORITOS</button>
+            </div>
         </div>
     </div>
     <div id="new-sugg-window">
         <NewPreference :user="loggedUser" v-if="newSuggOpt" @save-pref="checkRecomendacao()" />
     </div>
     <div id="suggest-city-window">
-        <CitySuggestion :user="loggedUser" v-if="checkSuggOpt" />
+        <CitySuggestion :user="loggedUser" v-if="checkSuggOpt" @voltar-home="() => checkSuggOpt = false"/>
     </div>
+    <div id="city-bookmark-window">
+        <CitySuggestion :user="loggedUser" v-if="viewBookmarks" @voltar-home="() => viewBookmarks = false"/>
+    </div>
+
 </template>
 
-<style scoped></style>
+<style scoped>
+
+#home-container {
+    display: flex;
+    flex-direction: column;
+    place-items: center;
+}
+
+</style>

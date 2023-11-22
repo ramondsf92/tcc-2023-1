@@ -1,5 +1,5 @@
 <script setup>
-import { ref, reactive, computed } from 'vue'
+import { ref, reactive, onUpdated } from 'vue'
 import Star from './Star.vue';
 
 const level = ref(null)
