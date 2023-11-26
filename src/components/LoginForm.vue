@@ -2,7 +2,7 @@
 import { ref } from 'vue'
 
 const userForm = ref({})
-const emit = defineEmits(['checkLogin'])
+const emit = defineEmits(['checkLogin', 'registerUser'])
 
 </script>
 
@@ -17,7 +17,8 @@ const emit = defineEmits(['checkLogin'])
         <button @click="$emit('checkLogin', userForm)">Login</button>
     </div>
     <div id="not-registered">
-        <small>Ainda não é registrado? Clique aqui e faça seu cadastro.</small>
+        <small>Ainda não é registrado? <span @click="$emit('registerUser')" id="register-link">Clique aqui</span> e faça seu
+            cadastro.</small>
     </div>
 </template>
 
@@ -31,5 +32,14 @@ const emit = defineEmits(['checkLogin'])
 
 .form>input {
     padding-bottom: 5px;
+}
+
+#register-link {
+    font-weight: bolder;
+}
+
+#register-link:hover {
+    cursor: pointer;
+    color: red;
 }
 </style>

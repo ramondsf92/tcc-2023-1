@@ -18,6 +18,7 @@ const imgExibida = ref(0)
                 <img :src="image" alt="Foto" class="city-img">
             </slide>
         </carousel>
+        <small>Arraste a imagem para o lado para navegar entre as fotos.</small>
         <!-- <img :src="props.cityObj.imagens[imgExibida]" alt="Foto"> -->
         <div id="city-info">
             <div id="city-info-left">

@@ -9,6 +9,7 @@ const props = defineProps({
     'loggedUser': Object
 })
 
+const emit = defineEmits(['logOut'])
 
 const newSuggOpt = ref(false)
 const checkSuggOpt = ref(false)
@@ -29,6 +30,7 @@ function checkRecomendacao() {
     if (prefObj.value != {}) {
         enableCitySugg.value = true
     }
+    console.log(users)
 }
 
 </script>
@@ -49,26 +51,26 @@ function checkRecomendacao() {
             <div id="city-bookmark-opt">
                 <button @click="() => viewBookmarks = true">VER FAVORITOS</button>
             </div>
+            <div id="logout-button">
+                <button @click="$emit('logOut')">Fazer Logout</button>
+            </div>
         </div>
     </div>
     <div id="new-sugg-window">
         <NewPreference :user="loggedUser" v-if="newSuggOpt" @save-pref="checkRecomendacao()" />
     </div>
     <div id="suggest-city-window">
-        <CitySuggestion :user="loggedUser" v-if="checkSuggOpt" @voltar-home="() => checkSuggOpt = false"/>
+        <CitySuggestion :user="loggedUser" v-if="checkSuggOpt" @voltar-home="() => checkSuggOpt = false" />
     </div>
     <div id="city-bookmark-window">
-        <CitySuggestion :user="loggedUser" v-if="viewBookmarks" @voltar-home="() => viewBookmarks = false"/>
+        <CitySuggestion :user="loggedUser" v-if="viewBookmarks" @voltar-home="() => viewBookmarks = false" />
     </div>
-
 </template>
 
 <style scoped>
-
 #home-container {
     display: flex;
     flex-direction: column;
     place-items: center;
 }
-
 </style>
