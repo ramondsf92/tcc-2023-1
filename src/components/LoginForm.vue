@@ -13,7 +13,7 @@ const emit = defineEmits(['checkLogin', 'registerUser'])
         <label for="email">E-mail </label>
         <input type="text" v-model="userForm.email">
         <label for="password">Senha </label>
-        <input type="password" v-model="userForm.password"><br>
+        <input @keyup.enter="$emit('checkLogin', userForm)" type="password" v-model="userForm.password"><br>
         <button @click="$emit('checkLogin', userForm)">Login</button>
     </div>
     <div id="not-registered">

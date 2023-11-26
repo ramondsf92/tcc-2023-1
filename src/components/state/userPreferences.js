@@ -1,6 +1,6 @@
 import { reactive } from 'vue'
 
-export const users = reactive([{
+export const userPreferences = reactive([{
     email: 'teste',
     preferencias: {},
 },])

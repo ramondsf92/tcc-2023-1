@@ -2,7 +2,8 @@
 import { ref } from 'vue'
 import NewPreference from './NewPreference.vue'
 import CitySuggestion from './CitySuggestion.vue'
-import { users } from './state/user'
+import { userPreferences } from './state/userPreferences'
+import FavoriteCities from './FavoriteCities.vue';
 
 // Lista de usuários que possui login está no array LoginList em App.vue
 const props = defineProps({
@@ -20,7 +21,7 @@ const prefObj = ref({})
 
 function checkRecomendacao() {
     newSuggOpt.value = false
-    const usuario = users.find(u => u.email === props.loggedUser.email)
+    const usuario = userPreferences.find(u => u.email === props.loggedUser.email)
     if (!usuario) {
         prefObj.value = {}
     }
@@ -30,7 +31,7 @@ function checkRecomendacao() {
     if (prefObj.value != {}) {
         enableCitySugg.value = true
     }
-    console.log(users)
+    console.log(userPreferences)
 }
 
 </script>
@@ -63,7 +64,8 @@ function checkRecomendacao() {
         <CitySuggestion :user="loggedUser" v-if="checkSuggOpt" @voltar-home="() => checkSuggOpt = false" />
     </div>
     <div id="city-bookmark-window">
-        <CitySuggestion :user="loggedUser" v-if="viewBookmarks" @voltar-home="() => viewBookmarks = false" />
+        <FavoriteCities :user-email="props.loggedUser.email" v-if="viewBookmarks"
+            @voltar-home="() => viewBookmarks = false" />
     </div>
 </template>
 

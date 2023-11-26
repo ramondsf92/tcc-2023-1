@@ -1,6 +1,6 @@
 <script setup>
 import { ref } from 'vue'
-import { users } from './state/user'
+import { userPreferences } from './state/userPreferences'
 
 const props = defineProps({
     'user': Object
@@ -15,9 +15,9 @@ const valores = ref({
 })
 
 function salvarPreferencia(v) {
-    const usuario = users.find(u => u.email === props.user.email)
+    const usuario = userPreferences.find(u => u.email === props.user.email)
     if (!usuario) {
-        users.push({
+        userPreferences.push({
             email: props.user.email,
             preferencias: {
                 tipoCidade: v.tipoCidade,
@@ -33,7 +33,7 @@ function salvarPreferencia(v) {
             custoVida: v.custoVida
         }
     }
-    console.log(users)
+    console.log(userPreferences)
     emit('savePref')
 }
 

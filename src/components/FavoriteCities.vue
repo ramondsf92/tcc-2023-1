@@ -1,34 +1,34 @@
 <script setup>
-import { ref } from 'vue'
+import { ref, onMounted, onBeforeMount } from 'vue'
 import CityCard from './CityCard.vue'
 import { cities } from './state/cities'
-import { bookmarks } from './state/bookmarks'
+import { loginList } from './state/loginList';
+import { bookmarks } from './state/bookmarks';
 
-// Aqui será onde instanciaremos a lista de cidades a serem sugeridas para o usuário
-// Os dados sobre a cidade será passado via props para o componente CityCard, e
-// também o índice do array das cidades para navegar entre os diferentes elementos do array
-
-// const props = defineProps({
-//     'user': Object
-// })
-
-
+const props = defineProps({
+    'userEmail': String,
+})
 
 const indiceAtual = ref(0)
+const cidadesFav = ref([])
 
-console.log(cities.length)
+onBeforeMount(() => {
+    const nomeCidadesFav = bookmarks.find(u => u.email === props.userEmail).favCities
+    console.log(nomeCidadesFav)
+    nomeCidadesFav.forEach(c => {
+        cidadesFav.value.push(cities.find(city => city.nome == c))
+    })
+    console.log(cidadesFav.value)
+})
 
 </script>
 
 <template>
-    <div id="city-sugg">
+    <div id="city-fav">
         <div>
-            <CityCard :city-obj="cities[indiceAtual]" />
+            <CityCard :city-obj="cidadesFav[indiceAtual]" />
         </div>
-        <div id="city-set-bookmark">
-            Clique para marcar como favorito
-        </div>
-        <div id="city-nav-buttons">
+        <div id="fav-nav-buttons">
             <button @click="() => indiceAtual = indiceAtual - 1" :disabled="indiceAtual == 0">SUGESTÃO ANTERIOR</button>
             <button @click="() => indiceAtual = indiceAtual + 1" :disabled="indiceAtual == cidadesFav.length - 1">PRÓXIMA
                 SUGESTÃO</button>
