@@ -30,7 +30,7 @@ console.log(cities.length)
         </div>
         <div id="city-nav-buttons">
             <button @click="() => indiceAtual = indiceAtual - 1" :disabled="indiceAtual == 0">SUGESTÃO ANTERIOR</button>
-            <button @click="() => indiceAtual = indiceAtual + 1" :disabled="indiceAtual == cidadesFav.length - 1">PRÓXIMA
+            <button @click="() => indiceAtual = indiceAtual + 1" :disabled="indiceAtual == cities.length - 1">PRÓXIMA
                 SUGESTÃO</button>
         </div>
         <div id="city-back-button">

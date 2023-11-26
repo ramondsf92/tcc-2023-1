@@ -40,7 +40,7 @@ onBeforeMount(() => {
 </template>
 
 <style scoped>
-#city-sugg {
+#city-fav {
     display: flex;
     flex-direction: column;
     place-items: center;
