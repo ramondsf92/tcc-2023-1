@@ -37,36 +37,38 @@ function checkRecomendacao() {
 </script>
 
 <template>
-    <div class="home-options">
-        <h1>Bem-vindo {{ props.loggedUser.name }}</h1>
-        <div id="home-container" v-if="!newSuggOpt && !checkSuggOpt && !viewBookmarks">
-            <div>
-                Suas recomendações: {{ prefObj }}
-            </div>
-            <div id="new-sugg-opt">
-                <button @click="newSuggOpt = true">NOVA RECOMENDAÇÃO</button>
-            </div>
-            <div id="check-sugg-opt">
-                <button :disabled="!enableCitySugg" @click="checkSuggOpt = true">SUGERIR CIDADES</button>
-            </div>
-            <div id="city-bookmark-opt">
-                <button @click="() => viewBookmarks = true">VER FAVORITOS</button>
-            </div>
-            <div id="logout-button">
-                <button @click="$emit('logOut')">Fazer Logout</button>
+    <v-container class="d-flex flex-column align-center w-25">
+        <div class="home-options">
+            <h1>Bem-vindo {{ props.loggedUser.name }}</h1>
+            <div id="home-container" v-if="!newSuggOpt && !checkSuggOpt && !viewBookmarks">
+                <div>
+                    Suas recomendações: {{ prefObj }}
+                </div>
+                <div id="new-sugg-opt">
+                    <v-btn class="mt-3" @click="newSuggOpt = true">NOVA RECOMENDAÇÃO</v-btn>
+                </div>
+                <div id="check-sugg-opt">
+                    <v-btn class="mt-3" :disabled="!enableCitySugg" @click="checkSuggOpt = true">SUGERIR CIDADES</v-btn>
+                </div>
+                <div id="city-bookmark-opt">
+                    <v-btn class="mt-3" @click="() => viewBookmarks = true">VER FAVORITOS</v-btn>
+                </div>
+                <div id="logout-v-btn">
+                    <v-btn class="mt-3" @click="$emit('logOut')">Fazer Logout</v-btn>
+                </div>
             </div>
         </div>
-    </div>
-    <div id="new-sugg-window">
-        <NewPreference :user="loggedUser" v-if="newSuggOpt" @save-pref="checkRecomendacao()" />
-    </div>
-    <div id="suggest-city-window">
-        <CitySuggestion :user="loggedUser" v-if="checkSuggOpt" @voltar-home="() => checkSuggOpt = false" />
-    </div>
-    <div id="city-bookmark-window">
-        <FavoriteCities :user-email="props.loggedUser.email" v-if="viewBookmarks"
-            @voltar-home="() => viewBookmarks = false" />
-    </div>
+        <div id="new-sugg-window">
+            <NewPreference :user="loggedUser" v-if="newSuggOpt" @save-pref="checkRecomendacao()" />
+        </div>
+        <div id="suggest-city-window">
+            <CitySuggestion :user="loggedUser" v-if="checkSuggOpt" @voltar-home="() => checkSuggOpt = false" />
+        </div>
+        <div id="city-bookmark-window">
+            <FavoriteCities :user-email="props.loggedUser.email" v-if="viewBookmarks"
+                @voltar-home="() => viewBookmarks = false" />
+        </div>
+    </v-container>
 </template>
 
 <style scoped>

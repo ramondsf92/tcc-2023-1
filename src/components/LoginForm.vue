@@ -7,23 +7,26 @@ const emit = defineEmits(['checkLogin', 'registerUser'])
 </script>
 
 <template>
-    <strong>Bem-vindo! Por favor, faça seu login para continuar.</strong><br>
-    <small>Login para teste: ramon@123.com / Senha: 1234</small>
-    <div class="form">
-        <label for="email">E-mail </label>
-        <input type="text" v-model="userForm.email">
-        <label for="password">Senha </label>
-        <input @keyup.enter="$emit('checkLogin', userForm)" type="password" v-model="userForm.password"><br>
-        <button @click="$emit('checkLogin', userForm)">Login</button>
-    </div>
-    <div id="not-registered">
-        <small>Ainda não é registrado? <span @click="$emit('registerUser')" id="register-link">Clique aqui</span> e faça seu
+    <v-container class="d-flex flex-column align-center border w-25">
+        <v-icon icon="mdi-home" />
+        <strong>Bem-vindo! Por favor, faça seu login para continuar.</strong>
+        <small>Login para teste: ramon@123.com / Senha: 1234</small>
+        <v-text-field class="align-self-stretch mt-3" label="E-mail" v-model="userForm.email"></v-text-field>
+        <v-text-field class="align-self-stretch" label=" Senha" @keyup.enter="$emit('checkLogin', userForm)" type="password"
+            v-model="userForm.password"></v-text-field>
+        <v-btn class="mt-2 mb-2" color="light-blue-accent-3" @click="$emit('checkLogin', userForm)">Login</v-btn>
+        <small>Ainda não é registrado? <span @click="$emit('registerUser')" id="register-link">Clique aqui</span> e faça
+            seu
             cadastro.</small>
-    </div>
+    </v-container>
 </template>
 
 <style scoped>
-.form {
+.w-50p {
+    width: 50px;
+}
+
+/* .form {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -32,7 +35,7 @@ const emit = defineEmits(['checkLogin', 'registerUser'])
 
 .form>input {
     padding-bottom: 5px;
-}
+} */
 
 #register-link {
     font-weight: bolder;

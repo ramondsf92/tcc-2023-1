@@ -1,3 +1,21 @@
+<template>
+  <v-app>
+    <VAppBar color="light-blue-darken-4">
+      <VAppBarTitle>Título do APP - Esqueci o nome</VAppBarTitle>
+    </VAppBar>
+    <v-main>
+      <!-- <HelloWorld /> -->
+      <VContainer class="border-lg elevation-3" color="light-blue-darken-2">
+        <LoginForm v-if="!autenticado && !registrandoUsuario" @check-login="validarLogin"
+          @register-user="() => registrandoUsuario = true" />
+        <Home v-if="autenticado" :logged-user="currentUser" @log-out="() => autenticado = false" />
+        <NewUser v-if="registrandoUsuario" @register="registrarUsuario"
+          @back-to-login="() => registrandoUsuario = false" />
+      </VContainer>
+    </v-main>
+  </v-app>
+</template>
+
 <script setup>
 import { ref, computed } from 'vue'
 import LoginForm from './components/LoginForm.vue';
@@ -51,42 +69,3 @@ function registrarUsuario(user) {
 }
 
 </script>
-
-<template>
-  <header>
-    <img src="@/assets/avatar_0925.jpg" alt="sss">
-  </header>
-  <main>
-    <LoginForm v-if="!autenticado && !registrandoUsuario" @check-login="validarLogin"
-      @register-user="() => registrandoUsuario = true" />
-    <Home v-if="autenticado" :logged-user="currentUser" @log-out="() => autenticado = false" />
-    <NewUser v-if="registrandoUsuario" @register="registrarUsuario" @back-to-login="() => registrandoUsuario = false" />
-  </main>
-
-  <footer>
-    Footer
-  </footer>
-</template>
-
-<style scoped>
-* {
-  color: gray;
-}
-
-header {
-  grid-area: header;
-  background-color: blueviolet;
-  place-self: center;
-}
-
-main {
-  grid-area: main;
-  background-color: bisque;
-  place-self: center;
-}
-
-footer {
-  grid-area: footer;
-  background-color: chocolate;
-}
-</style>

@@ -8,21 +8,19 @@ const emit = defineEmits(['register', 'backToLogin'])
 </script>
 
 <template>
-    <strong>Bem-vindo! Por favor, preencha com seus dados para se cadastrar.</strong><br>
-    <div class="register-form">
-        <label for="name">Nome </label>
-        <input type="text" v-model="newUserForm.name">
-        <label for="email">E-mail </label>
-        <input type="text" v-model="newUserForm.email">
-        <label for="password">Senha </label>
-        <input type="password" v-model="newUserForm.password"><br>
-        <button @click="$emit('register', newUserForm)">Cadastrar-se</button>
-        <button @click="$emit('backToLogin')">Voltar para Login</button>
-    </div>
+    <v-container class="d-flex flex-column align-center margin w-25">
+        <strong>Bem-vindo! Por favor, preencha com seus dados para se cadastrar.</strong>
+        <v-text-field class="align-self-stretch" label="Nome" v-model="newUserForm.name"></v-text-field>
+        <v-text-field class="align-self-stretch" label="E-mail" v-model="newUserForm.email"></v-text-field>
+        <v-text-field class="align-self-stretch" label="Senha" type="password"
+            v-model="newUserForm.password"></v-text-field>
+        <v-btn class="mt-2" color="light-blue-accent-3" @click="$emit('register', newUserForm)">Cadastrar-se</v-btn>
+        <v-btn class="mt-2" color="light-blue-accent-3" @click="$emit('backToLogin')">Voltar para Login</v-btn>
+    </v-container>
 </template>
 
 <style scoped>
-.register-form {
+/* .register-form {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -31,5 +29,5 @@ const emit = defineEmits(['register', 'backToLogin'])
 
 .register-form input {
     padding-bottom: 5px;
-}
+} */
 </style>
