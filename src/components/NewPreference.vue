@@ -47,37 +47,36 @@ function verificarVazio() {
 </script>
 
 <template>
-    <div>
+    <v-container class="d-flex flex-column align-center">
         <p>Selecione os valores das características em grau de importância de 1 a 5.</p>
-        <ul>
-            <li>Custo do imóvel
-                <select id="select-custo-imovel" v-model="valores.custoImovel">
-                    <option value="1">1</option>
-                    <option value="2">2</option>
-                    <option value="3">3</option>
-                    <option value="4">4</option>
-                    <option value="5">5</option>
-                </select>
-            </li>
-            <li>Custo de vida
-                <select id="select-custo-vida" v-model="valores.custoVida">
-                    <option value="1">1</option>
-                    <option value="2">2</option>
-                    <option value="3">3</option>
-                    <option value="4">4</option>
-                    <option value="5">5</option>
-                </select>
-            </li>
-            <li>Tipo de cidade
-                <select id="select-tipo-cidade" v-model="valores.tipoCidade">
-                    <option value="pequena">Pequena</option>
-                    <option value="media">Média</option>
-                    <option value="grande">Grande</option>
-                </select>
-            </li>
-        </ul>
-        <button :disabled="verificarVazio()" id="salvar" @click="salvarPreferencia(valores)">Salvar</button>
-    </div>
+        <v-list lines="one">
+            <v-list-item>
+                <span>Custo do imóvel</span>
+                <v-select  
+                    id="select-custo-imovel" 
+                    v-model="valores.custoImovel"
+                    :items="['1','2','3','4','5']">
+                </v-select>
+            </v-list-item>
+            <v-list-item>
+                <span>Custo do imóvel</span>
+                <v-select 
+                    id="select-custo-vida" 
+                    v-model="valores.custoVida"
+                    :items="['1','2','3','4','5']">
+                </v-select>
+            </v-list-item>
+            <v-list-item>
+                <span>Custo do imóvel</span>
+                <v-select 
+                    id="select-tipo-cidade" 
+                    v-model="valores.tipoCidade"
+                    :items="['1','2','3','4','5']">
+                </v-select>
+            </v-list-item>
+        </v-list>
+        <v-btn :disabled="verificarVazio()" id="salvar" @click="salvarPreferencia(valores)">Salvar</v-btn>
+    </v-container>
 </template>
 
 <style scoped>
@@ -92,9 +91,4 @@ li select {
     margin-right: 50%;
 }
 
-#salvar {
-    margin-top: 5px;
-    margin-left: 45%;
-    padding: 10px 15px;
-}
 </style>

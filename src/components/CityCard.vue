@@ -12,12 +12,17 @@ const imgExibida = ref(0)
 </script>
 
 <template>
-    <div id="city-card">
-        <carousel id="img-carousel">
+    <!-- <div id="city-card"> -->
+        <!-- <carousel id="img-carousel">
             <slide v-for="image in props.cityObj.imagens" :key="image">
                 <img :src="image" alt="Foto" class="city-img">
             </slide>
-        </carousel>
+        </carousel> -->
+    <v-container class="d-flex flex-column w-100 align-center">
+        <v-carousel show-arrows="hover">
+            <v-carousel-item
+                v-for="image in props.cityObj.imagens" :key="image" :src="image" cover></v-carousel-item>
+        </v-carousel>
         <small>Arraste a imagem para o lado para navegar entre as fotos.</small>
         <!-- <img :src="props.cityObj.imagens[imgExibida]" alt="Foto"> -->
         <div id="city-info">
@@ -34,7 +39,8 @@ const imgExibida = ref(0)
                 Educação: {{ props.cityObj.educacao }}<br>
             </div>
         </div>
-    </div>
+    </v-container>
+    <!-- </div> -->
 </template>
 
 <style scoped>

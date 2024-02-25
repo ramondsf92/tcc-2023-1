@@ -21,22 +21,33 @@ console.log(cities.length)
 </script>
 
 <template>
-    <div id="city-sugg">
+    <v-container class="d-flex flex-column">
         <div>
             <CityCard :city-obj="cities[indiceAtual]" />
         </div>
-        <div id="city-set-bookmark">
+        <div class="align-self-center" id="city-set-bookmark">
             Clique para marcar como favorito
         </div>
-        <div id="city-nav-buttons">
-            <button @click="() => indiceAtual = indiceAtual - 1" :disabled="indiceAtual == 0">SUGESTÃO ANTERIOR</button>
-            <button @click="() => indiceAtual = indiceAtual + 1" :disabled="indiceAtual == cities.length - 1">PRÓXIMA
-                SUGESTÃO</button>
+        <div class="mb-3 align-self-center">
+            <v-btn 
+                class="mt-3" 
+                @click="() => indiceAtual = indiceAtual - 1" 
+                :disabled="indiceAtual == 0">
+                    SUGESTÃO ANTERIOR
+            </v-btn>
+            <v-btn 
+                class="mt-3" 
+                @click="() => indiceAtual = indiceAtual + 1" 
+                :disabled="indiceAtual == cities.length - 1">
+                    PRÓXIMA SUGESTÃO
+            </v-btn>
         </div>
-        <div id="city-back-button">
-            <button @click="$emit('voltarHome')">Voltar</button>
-        </div>
-    </div>
+        <v-btn 
+                class="mt-3 w-50 align-self-center" 
+                @click="$emit('voltarHome')">
+                    Voltar
+            </v-btn>
+    </v-container>
 </template>
 
 <style scoped>

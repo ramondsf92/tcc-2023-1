@@ -37,26 +37,25 @@ function checkRecomendacao() {
 </script>
 
 <template>
-    <v-container class="d-flex flex-column align-center w-25">
-        <div class="home-options">
-            <h1>Bem-vindo {{ props.loggedUser.name }}</h1>
-            <div id="home-container" v-if="!newSuggOpt && !checkSuggOpt && !viewBookmarks">
-                <div>
-                    Suas recomendações: {{ prefObj }}
-                </div>
-                <div id="new-sugg-opt">
-                    <v-btn class="mt-3" @click="newSuggOpt = true">NOVA RECOMENDAÇÃO</v-btn>
-                </div>
-                <div id="check-sugg-opt">
-                    <v-btn class="mt-3" :disabled="!enableCitySugg" @click="checkSuggOpt = true">SUGERIR CIDADES</v-btn>
-                </div>
-                <div id="city-bookmark-opt">
-                    <v-btn class="mt-3" @click="() => viewBookmarks = true">VER FAVORITOS</v-btn>
-                </div>
-                <div id="logout-v-btn">
-                    <v-btn class="mt-3" @click="$emit('logOut')">Fazer Logout</v-btn>
-                </div>
+    <v-container class="d-flex flex-column w-75">
+        <h1 class="align-self-center">Bem-vindo {{ props.loggedUser.name }}</h1>
+        <div id="home-container" v-if="!newSuggOpt && !checkSuggOpt && !viewBookmarks">
+            <div>
+                Suas recomendações: {{ prefObj }}
             </div>
+            <div id="new-sugg-opt">
+                <v-btn class="mt-3" @click="newSuggOpt = true">NOVA RECOMENDAÇÃO</v-btn>
+            </div>
+            <div id="check-sugg-opt">
+                <v-btn class="mt-3" :disabled="!enableCitySugg" @click="checkSuggOpt = true">SUGERIR CIDADES</v-btn>
+            </div>
+            <div id="city-bookmark-opt">
+                <v-btn class="mt-3" @click="() => viewBookmarks = true">VER FAVORITOS</v-btn>
+            </div>
+            <div id="logout-v-btn">
+                <v-btn class="mt-5" @click="$emit('logOut')">Fazer Logout</v-btn>
+            </div>
+            
         </div>
         <div id="new-sugg-window">
             <NewPreference :user="loggedUser" v-if="newSuggOpt" @save-pref="checkRecomendacao()" />
@@ -77,4 +76,5 @@ function checkRecomendacao() {
     flex-direction: column;
     place-items: center;
 }
+
 </style>
