@@ -15,6 +15,8 @@ const checkSuggOpt = ref(false);
 
 const enableCitySugg = ref(false);
 const prefObj = ref({});
+const citiesList = ref(null);
+const questionsList = ref(null);
 
 function checkRecomendacao(valores) {
   console.log(valores);
@@ -25,6 +27,62 @@ function checkRecomendacao(valores) {
     enableCitySugg.value = true;
   }
   console.log(prefObj.value);
+}
+
+// A função abaixo fará a requisição para capturar a lista de cidades.
+// Esta lista ficará armazenada na variável citiesList e será passada para o componente CitySuggestion através de props.
+// Para fins de testes, está sendo consumida uma API de piadas, onde a requisição retorna uma piada em formato JSON
+// e está sendo passada para o componente filho como objeto através do JSON.parse()
+// async function sugerirCidades() {
+//   const url = "https://jokes-by-api-ninjas.p.rapidapi.com/v1/jokes";
+//   const options = {
+//     method: "GET",
+//     headers: {
+//       "X-RapidAPI-Key": "e586fe275bmsh48f7a904281ef45p19083ajsn8d2a30cd25a3",
+//       "X-RapidAPI-Host": "jokes-by-api-ninjas.p.rapidapi.com",
+//     },
+//   };
+
+//   try {
+//     const response = await fetch(url, options);
+//     const result = await response.text();
+//     console.log(result);
+//     citiesList.value = JSON.parse(result);
+//     console.log(citiesList.value);
+//   } catch (error) {
+//     console.error(error);
+//   }
+//   checkSuggOpt.value = true;
+// }
+
+async function novaRecomendacao() {
+  const url = "http://localhost:5000/info-api/questions";
+
+  try {
+    const response = await fetch(url);
+    const result = await response.text();
+    console.log(result);
+    questionsList.value = JSON.parse(result);
+    console.log(questionsList.value);
+  } catch (error) {
+    console.error(error);
+  }
+  newSuggOpt.value = true;
+}
+
+async function sugerirCidades() {
+  const url = "http://localhost:5000/info-api/questions";
+
+  try {
+    const response = await fetch(url);
+    const result = await response.text();
+    console.log(result);
+    citiesList.value = JSON.parse(result);
+    console.log(citiesList.value);
+  } catch (error) {
+    console.error(error);
+  }
+  checkSuggOpt.value = true;
 }
 </script>
 
@@ -42,10 +100,10 @@ function checkRecomendacao(valores) {
         class="w-100 d-flex flex-md-row flex-column justify-md-space-around align-center mt-md-4 mt-2"
       >
         <div id="new-sugg-opt" class="pb-2">
-          <v-btn @click="newSuggOpt = true">NOVA RECOMENDAÇÃO</v-btn>
+          <v-btn @click="novaRecomendacao">NOVA RECOMENDAÇÃO</v-btn>
         </div>
         <div id="check-sugg-opt" class="pb-2">
-          <v-btn :disabled="!enableCitySugg" @click="checkSuggOpt = true"
+          <v-btn :disabled="!enableCitySugg" @click="sugerirCidades"
             >SUGERIR CIDADES</v-btn
           >
         </div>
@@ -57,6 +115,7 @@ function checkRecomendacao(valores) {
     <div id="new-sugg-window">
       <NewPreference
         :user="loggedUser"
+        :questions-list="questionsList"
         v-if="newSuggOpt"
         @save-pref="checkRecomendacao"
       />
@@ -64,6 +123,7 @@ function checkRecomendacao(valores) {
     <div id="suggest-city-window">
       <CitySuggestion
         :user="loggedUser"
+        :cities-list="citiesList"
         v-if="checkSuggOpt"
         @voltar-home="() => (checkSuggOpt = false)"
       />
