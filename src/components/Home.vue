@@ -14,7 +14,7 @@ const newSuggOpt = ref(false);
 const checkSuggOpt = ref(false);
 
 const enableCitySugg = ref(false);
-const prefObj = ref({});
+const prefObj = ref([]);
 const citiesList = ref(null);
 const questionsList = ref(null);
 
@@ -27,6 +27,15 @@ function checkRecomendacao(valores) {
     enableCitySugg.value = true;
   }
   console.log(prefObj.value);
+}
+
+function mostrarRespostasHome() {
+  let resposta = ""
+  prefObj.value.map(o => {
+    resposta = resposta + `${o.title}\n${o.answer}\n\n`
+  })
+  console.log(resposta)
+  alert(resposta)
 }
 
 // A função abaixo fará a requisição para capturar a lista de cidades.
@@ -94,7 +103,11 @@ async function sugerirCidades() {
         Clique em "Nova Recomendação" para nos dizer suas preferências e depois
         clique em "Sugerir Cidades"
       </div>
-      <div class="mt-3">Suas recomendações: {{ prefObj }}</div>
+      <div v-if="prefObj.length > 0" class="mt-3">
+        <v-btn @click="mostrarRespostasHome">
+          Clique para mostrar suas respostas
+        </v-btn>
+      </div>
       <div
         id="btns"
         class="w-100 d-flex flex-md-row flex-column justify-md-space-around align-center mt-md-4 mt-2"
