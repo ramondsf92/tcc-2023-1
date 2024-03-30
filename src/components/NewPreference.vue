@@ -5,10 +5,22 @@ import { ref, reactive, onMounted } from "vue";
 const props = defineProps({
   user: Object,
   questionsList: Array,
+  respostas: Array,
 });
 
 onMounted(() => {
-  console.log(props.questionsList);
+  console.log(props.respostas);
+  if (props.respostas.length == 0) {
+    console.log("É zero");
+    results.value = Array.apply(null, Array(12)).map(
+      Number.prototype.valueOf,
+      0
+    );
+  } else {
+    console.log("Não é zero");
+    props.respostas.map((num) => results.push(num));
+  }
+  console.log(results);
 });
 
 // variável das perguntas já com resposta e incluso valores de custo
@@ -16,7 +28,7 @@ const questionsFull = JSON.parse(JSON.stringify(props.questionsList));
 
 const emit = defineEmits(["savePref"]);
 
-const results = reactive([0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]);
+const results = reactive([]);
 
 // Preenchendo os valores de custo nos intervalos de respostas de 1 a 5
 const conversaoCustoInverso = ref([
@@ -115,7 +127,7 @@ const conversaoCusto = ref([
   },
 ]);
 
-function salvarPreferencia(q) {
+function salvarPreferencia(q, r) {
   questionsFull.forEach((question, index) => {
     question.answer = results[index];
   });
@@ -231,7 +243,7 @@ function salvarPreferencia(q) {
   questionsFull[11].health = 0;
   questionsFull[11].recreation = 0;
 
-  emit("savePref", questionsFull);
+  emit("savePref", questionsFull, results);
 }
 </script>
 
@@ -265,7 +277,7 @@ function salvarPreferencia(q) {
       class="w-50 align-self-center mt-3"
       :disabled="results.includes(0)"
       id="salvar"
-      @click="salvarPreferencia(questionsFull)"
+      @click="salvarPreferencia(questionsFull, results)"
       >Salvar</v-btn
     >
   </v-container>

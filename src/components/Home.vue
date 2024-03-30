@@ -1,5 +1,5 @@
 <script setup>
-import { ref } from "vue";
+import { ref, reactive } from "vue";
 import NewPreference from "./NewPreference.vue";
 import CitySuggestion from "./CitySuggestion.vue";
 
@@ -18,24 +18,27 @@ const prefObj = ref([]);
 const citiesList = ref(null);
 const questionsList = ref(null);
 
-function checkRecomendacao(valores) {
-  console.log(valores);
+const listaRespostas = ref([]);
+
+function checkRecomendacao(valores, results) {
   newSuggOpt.value = false;
   prefObj.value = valores;
+  results.map((resposta, index) => (listaRespostas.value[index] = resposta));
 
   if (prefObj.value != {}) {
     enableCitySugg.value = true;
   }
   console.log(prefObj.value);
+  console.log(listaRespostas.value);
 }
 
 function mostrarRespostasHome() {
-  let resposta = ""
-  prefObj.value.map(o => {
-    resposta = resposta + `${o.title}\n${o.answer}\n\n`
-  })
-  console.log(resposta)
-  alert(resposta)
+  let resposta = "";
+  prefObj.value.map((o) => {
+    resposta = resposta + `${o.title}\n${o.answer}\n\n`;
+  });
+  console.log(resposta);
+  alert(resposta);
 }
 
 // A função abaixo fará a requisição para capturar a lista de cidades.
@@ -65,6 +68,7 @@ function mostrarRespostasHome() {
 // }
 
 async function novaRecomendacao() {
+  console.log(listaRespostas);
   const url = "http://localhost:5000/info-api/questions";
 
   try {
@@ -113,7 +117,11 @@ async function sugerirCidades() {
         class="w-100 d-flex flex-md-row flex-column justify-md-space-around align-center mt-md-4 mt-2"
       >
         <div id="new-sugg-opt" class="pb-2">
-          <v-btn @click="novaRecomendacao">NOVA RECOMENDAÇÃO</v-btn>
+          <v-btn @click="novaRecomendacao">{{
+            listaRespostas.length == 0
+              ? "NOVA RECOMENDAÇÃO"
+              : "EDITAR RECOMENDAÇÃO"
+          }}</v-btn>
         </div>
         <div id="check-sugg-opt" class="pb-2">
           <v-btn :disabled="!enableCitySugg" @click="sugerirCidades"
@@ -129,6 +137,7 @@ async function sugerirCidades() {
       <NewPreference
         :user="loggedUser"
         :questions-list="questionsList"
+        :respostas="listaRespostas"
         v-if="newSuggOpt"
         @save-pref="checkRecomendacao"
       />
