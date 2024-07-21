@@ -84,11 +84,18 @@ async function novaRecomendacao() {
 }
 
 async function sugerirCidades() {
-  const url = "http://localhost:5000/info-api/questions";
+  const url = "http://localhost:5000/info-api/city/recomendation";
 
   try {
-    const response = await fetch(url);
-    const result = await response.text();
+    const response = await fetch(url, {
+      method: "POST",
+      mode: "no-cors",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(prefObj.value),
+    });
+    const result = await response.json();
     console.log(result);
     citiesList.value = JSON.parse(result);
     console.log(citiesList.value);
@@ -145,7 +152,6 @@ async function sugerirCidades() {
     <div id="suggest-city-window">
       <CitySuggestion
         :user="loggedUser"
-        :cities-list="citiesList"
         v-if="checkSuggOpt"
         @voltar-home="() => (checkSuggOpt = false)"
       />
