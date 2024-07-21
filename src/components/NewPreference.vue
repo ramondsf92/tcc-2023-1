@@ -273,9 +273,14 @@ function salvarPreferencia(q, r) {
         </v-radio-group>
       </div>
     </div>
+    {{ results.includes(null) }}
+    {{ results.filter((result) => result != null) }}
     <v-btn
       class="w-50 align-self-center mt-3"
-      :disabled="results.includes(0)"
+      :disabled="
+        results.length < props.questionsList.length ||
+        results.filter((result) => result != null).length != results.length
+      "
       id="salvar"
       @click="salvarPreferencia(questionsFull, results)"
       >Salvar</v-btn

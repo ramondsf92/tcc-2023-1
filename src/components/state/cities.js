@@ -1,3 +1,6 @@
+// Este arquivo cities.js foi criado apenas para fins de testes do frontend, em que o componente CitySuggestion.vue buscará nesse arquivos exemplos de cidades.
+// O arquivo deverá ser removido na versão final do projeto
+
 import { reactive } from "vue";
 
 export const cities = reactive([

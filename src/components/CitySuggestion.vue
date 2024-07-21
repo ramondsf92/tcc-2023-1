@@ -2,15 +2,6 @@
 import { ref } from "vue";
 import CityCard from "./CityCard.vue";
 import { cities } from "./state/cities";
-import { bookmarks } from "./state/bookmarks";
-
-// Aqui será onde instanciaremos a lista de cidades a serem sugeridas para o usuário
-// Os dados sobre a cidade será passado via props para o componente CityCard, e
-// também o índice do array das cidades para navegar entre os diferentes elementos do array
-
-// const props = defineProps({
-//   citiesList: Object,
-// });
 
 const indiceAtual = ref(0);
 
@@ -19,9 +10,6 @@ console.log(cities.length);
 
 <template>
   <v-container class="d-flex flex-column">
-    <!-- <div>
-      {{ props.citiesList }}
-    </div> -->
     <div>
       <CityCard :city-obj="cities[indiceAtual]" />
     </div>

@@ -9,23 +9,17 @@ const emit = defineEmits(["checkLogin", "registerUser"]);
   <v-container class="d-flex flex-column align-center border w-25">
     <v-icon icon="mdi-home" />
     <strong>Bem-vindo! Como você se chama?</strong>
-    <!-- <small>Login para teste: ramon@123.com / Senha: 1234</small> -->
     <v-text-field
       class="align-self-stretch mt-3"
       label="Nome"
       v-model="userForm.name"
     ></v-text-field>
-    <!-- <v-text-field class="align-self-stretch" label=" Senha" @keyup.enter="$emit('checkLogin', userForm)" type="password"
-            v-model="userForm.password"></v-text-field> -->
     <v-btn
       class="mt-2 mb-2"
       color="light-blue-accent-3"
       @click="$emit('checkLogin', userForm)"
       >Login</v-btn
     >
-    <!-- <small>Ainda não é registrado? <span @click="$emit('registerUser')" id="register-link">Clique aqui</span> e faça
-            seu
-            cadastro.</small> -->
   </v-container>
 </template>
 
