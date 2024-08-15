@@ -1,10 +1,14 @@
 <script setup>
-import { ref } from "vue";
+import { ref, onMounted } from "vue";
 import "vue3-carousel/dist/carousel.css";
 import { Carousel, Slide, Pagination, Navigation } from "vue3-carousel";
 
 const props = defineProps({
   cityObj: Object,
+});
+
+onMounted(() => {
+  console.log(props.cityObj);
 });
 
 const imgExibida = ref(0);
@@ -13,9 +17,9 @@ const imgExibida = ref(0);
 <template>
   <v-container class="d-flex flex-column w-100">
     <div class="mb-3 text-h2 align-self-center">
-      {{ props.cityObj.nome }}
+      {{ props.cityObj.name }}
     </div>
-    <v-carousel show-arrows="hover">
+    <!-- <v-carousel show-arrows="hover">
       <v-carousel-item
         v-for="image in props.cityObj.imagens"
         :key="image"
@@ -25,22 +29,22 @@ const imgExibida = ref(0);
     </v-carousel>
     <small class="align-self-center"
       >Clique na seta nas bordas da imagem para navegar entre as fotos.</small
-    >
+    > -->
     <div
       id="city-info"
       class="d-flex flex-column flex-md-row mt-2 align-center"
     >
       <div id="city-info-left" class="mb-2">
-        Cidade: {{ props.cityObj.nome }}<br />
-        Qtd Habit: {{ props.cityObj.qtdHab }}<br />
-        Região: {{ props.cityObj.regiao }}<br />
-        PIB per Capita: {{ props.cityObj.pibPerC }}
+        Cidade: {{ props.cityObj.name }}<br />
+        Qtd Habit: {{ props.cityObj.population }}<br />
+        IDH: {{ props.cityObj.idh }}
       </div>
       <div id="city-info-right" class="mb-2">
-        Emprego: {{ props.cityObj.emprego }}<br />
-        Turismo: {{ props.cityObj.turismo }}<br />
-        Segurança: {{ props.cityObj.seguranca }}<br />
-        Educação: {{ props.cityObj.educacao }}<br />
+        Apenas para teste Quantidade de empresas:
+        {{ props.cityObj.enterprises_amount }}<br />
+        Densidade demográfica: {{ props.cityObj.demographic_amount }}<br />
+        Taxa de Segurança: {{ props.cityObj.securityRate }}<br />
+        Taxa de Escolaridade: {{ props.cityObj.scholarity_rate }}<br />
       </div>
     </div>
   </v-container>

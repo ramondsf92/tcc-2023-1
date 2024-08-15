@@ -6,11 +6,16 @@ const emit = defineEmits(["checkLogin", "registerUser"]);
 </script>
 
 <template>
-  <v-container class="d-flex flex-column align-center border w-25">
+  <v-container class="d-flex flex-column align-center border">
     <v-icon icon="mdi-home" />
     <strong>Bem-vindo! Como você se chama?</strong>
     <v-text-field
-      class="align-self-stretch mt-3"
+      class="align-self-center mt-3 w-100 d-md-none"
+      label="Nome"
+      v-model="userForm.name"
+    ></v-text-field>
+    <v-text-field
+      class="align-self-center mt-3 w-50 d-none d-md-block"
       label="Nome"
       v-model="userForm.name"
     ></v-text-field>

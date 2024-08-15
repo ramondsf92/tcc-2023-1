@@ -1,13 +1,14 @@
 <template>
   <v-app>
     <VAppBar color="light-blue-darken-4">
-      <VAppBarTitle>Título - Ainda a definir</VAppBarTitle>
+      <VAppBarTitle>SRC - Sistema de Recomendação de Cidades</VAppBarTitle>
     </VAppBar>
     <v-main>
       <!-- <HelloWorld /> -->
       <VContainer class="border-lg elevation-3" color="light-blue-darken-2">
         <LoginForm
           v-if="!autenticado"
+          class="w-100"
           @check-login="validarLogin"
           @register-user="() => (registrandoUsuario = true)"
         />

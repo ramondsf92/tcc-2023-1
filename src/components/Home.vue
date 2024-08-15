@@ -1,5 +1,6 @@
 <script setup>
 import { ref, reactive } from "vue";
+import axios from "axios";
 import NewPreference from "./NewPreference.vue";
 import CitySuggestion from "./CitySuggestion.vue";
 
@@ -10,15 +11,19 @@ const props = defineProps({
 
 const emit = defineEmits(["logOut"]);
 
+const loadingQuestions = ref(false);
+const loadingCities = ref(false);
+
 const newSuggOpt = ref(false);
 const checkSuggOpt = ref(false);
 
 const enableCitySugg = ref(false);
 const prefObj = ref([]);
-const citiesList = ref(null);
 const questionsList = ref(null);
 
 const listaRespostas = ref([]);
+
+const listaCidades = ref([]);
 
 function checkRecomendacao(valores, results) {
   newSuggOpt.value = false;
@@ -28,47 +33,58 @@ function checkRecomendacao(valores, results) {
   if (prefObj.value != {}) {
     enableCitySugg.value = true;
   }
+  console.log("Objetos resposta");
   console.log(prefObj.value);
-  console.log(listaRespostas.value);
+  // console.log("Respostas AQUI!");
+  // console.log(listaRespostas.value);
 }
 
 async function novaRecomendacao() {
-  console.log(listaRespostas);
   const url = "http://localhost:5000/info-api/questions";
-
+  loadingQuestions.value = true;
   try {
     const response = await fetch(url);
     const result = await response.text();
-    console.log(result);
+    // console.log("Result: " + result);
     questionsList.value = JSON.parse(result);
-    console.log(questionsList.value);
+    // console.log(questionsList.value);
   } catch (error) {
     console.error(error);
   }
+  loadingQuestions.value = false;
   newSuggOpt.value = true;
 }
 
 async function sugerirCidades() {
   const url = "http://localhost:5000/info-api/city/recomendation";
-
-  try {
-    const response = await fetch(url, {
-      method: "POST",
-      mode: "no-cors",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(prefObj.value),
-    });
-    const result = await response.json();
-    console.log(result);
-    citiesList.value = JSON.parse(result);
-    console.log(citiesList.value);
-  } catch (error) {
-    console.error(error);
-  }
+  loadingCities.value = true;
+  await axios.post(url, prefObj.value).then((res) => {
+    console.log(res.data);
+    listaCidades.value = [...res.data];
+  });
+  loadingCities.value = false;
   checkSuggOpt.value = true;
+  console.log(listaCidades.value);
 }
+
+// async function sugerirCidades() {
+// //   const url = "http://localhost:5000/info-api/city/recomendation";
+
+// //   try {
+// //     const response = await fetch(url, {
+// //       method: "POST",
+
+// //       body: JSON.stringify(prefObj.value),
+// //     });
+// //     // const result = await response.json();
+// //     // console.log(result);
+// //     // citiesList.value = JSON.parse(result);
+// //     // console.log(citiesList.value);
+// //   } catch (error) {
+// //     console.error(error);
+// //   }
+// //   checkSuggOpt.value = true;
+// // }
 </script>
 
 <template>
@@ -90,11 +106,13 @@ async function sugerirCidades() {
               : "EDITAR RECOMENDAÇÃO"
           }}</v-btn>
         </div>
+        <div v-if="loadingQuestions">Loading...</div>
         <div v-if="enableCitySugg" id="check-sugg-opt" class="pb-2">
           <v-btn :disabled="!enableCitySugg" @click="sugerirCidades"
             >SUGERIR CIDADES</v-btn
           >
         </div>
+        <div v-if="loadingCities">Carregando cidades...</div>
         <div id="logout-v-btn" class="pb-2 mt-5">
           <v-btn @click="$emit('logOut')">Fazer Logout</v-btn>
         </div>
@@ -111,8 +129,8 @@ async function sugerirCidades() {
     </div>
     <div id="suggest-city-window">
       <CitySuggestion
-        :user="loggedUser"
         v-if="checkSuggOpt"
+        :cidades="listaCidades"
         @voltar-home="() => (checkSuggOpt = false)"
       />
     </div>
