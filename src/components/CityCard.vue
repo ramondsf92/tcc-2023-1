@@ -1,7 +1,5 @@
 <script setup>
 import { ref, onMounted } from "vue";
-import "vue3-carousel/dist/carousel.css";
-import { Carousel, Slide, Pagination, Navigation } from "vue3-carousel";
 
 const props = defineProps({
   cityObj: Object,
@@ -16,20 +14,9 @@ const imgExibida = ref(0);
 
 <template>
   <v-container class="d-flex flex-column w-100">
-    <div class="mb-3 text-h2 align-self-center">
+    <div class="mb-5 text-h2 align-self-center">
       {{ props.cityObj.name }}
     </div>
-    <!-- <v-carousel show-arrows="hover">
-      <v-carousel-item
-        v-for="image in props.cityObj.imagens"
-        :key="image"
-        :src="image"
-        cover
-      ></v-carousel-item>
-    </v-carousel>
-    <small class="align-self-center"
-      >Clique na seta nas bordas da imagem para navegar entre as fotos.</small
-    > -->
     <div
       id="city-info"
       class="d-flex flex-column flex-md-row mt-2 align-center"
@@ -72,6 +59,5 @@ const imgExibida = ref(0);
 
 .city-img {
   width: 100%;
-  /* height: auto; */
 }
 </style>

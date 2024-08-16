@@ -3,6 +3,7 @@ import { ref, reactive } from "vue";
 import axios from "axios";
 import NewPreference from "./NewPreference.vue";
 import CitySuggestion from "./CitySuggestion.vue";
+import LoadingModal from "./LoadingModal.vue";
 
 // Lista de usuários que possui login está no array LoginList em App.vue
 const props = defineProps({
@@ -13,6 +14,7 @@ const emit = defineEmits(["logOut"]);
 
 const loadingQuestions = ref(false);
 const loadingCities = ref(false);
+const loadingMessage = ref("Loading...");
 
 const newSuggOpt = ref(false);
 const checkSuggOpt = ref(false);
@@ -89,11 +91,19 @@ async function sugerirCidades() {
 
 <template>
   <v-container class="d-flex flex-column w-75">
-    <h1 class="align-self-center">Bem-vindo {{ props.loggedUser.name }}</h1>
     <div id="home-container" v-if="!newSuggOpt && !checkSuggOpt">
-      <div class="mt-3">
-        Clique em "Nova Recomendação" para nos dizer suas preferências e depois
-        clique em "Sugerir Cidades"
+      <h1 class="align-self-center">Bem-vindo, {{ props.loggedUser.name }}!</h1>
+      <div id="msg-boasvindas" class="mt-3">
+        <p class="mb-2">
+          Se você procura uma cidade para morar e está em dúvida, você está no
+          lugar certo! Apenas nos diga seus gostos e cuidaremos de
+          <strong>tudo</strong>!
+        </p>
+        <p class="mb-2">
+          Clique em <strong>Nova Recomendação</strong> para nos dizer suas
+          preferências e depois clique em <strong>Sugerir Cidades</strong> para
+          receber uma lista de cidades que são a sua cara!
+        </p>
       </div>
       <div
         id="btns"
@@ -106,9 +116,12 @@ async function sugerirCidades() {
               : "EDITAR RECOMENDAÇÃO"
           }}</v-btn>
         </div>
-        <div v-if="loadingQuestions">Loading...</div>
-        <div v-if="enableCitySugg" id="check-sugg-opt" class="pb-2">
-          <v-btn :disabled="!enableCitySugg" @click="sugerirCidades"
+        <div v-if="loadingQuestions">{{ loadingMessage }}</div>
+        <div id="check-sugg-opt" class="pb-2">
+          <v-btn
+            :color="enableCitySugg ? 'light-blue-darken-3' : 'undefined'"
+            :disabled="!enableCitySugg"
+            @click="sugerirCidades"
             >SUGERIR CIDADES</v-btn
           >
         </div>
@@ -116,6 +129,9 @@ async function sugerirCidades() {
         <div id="logout-v-btn" class="pb-2 mt-5">
           <v-btn @click="$emit('logOut')">Fazer Logout</v-btn>
         </div>
+        <LoadingModal
+          :visible="loadingQuestions || loadingCities"
+        ></LoadingModal>
       </div>
     </div>
     <div id="new-sugg-window">
@@ -142,5 +158,9 @@ async function sugerirCidades() {
   display: flex;
   flex-direction: column;
   place-items: center;
+}
+
+#msg-boasvindas {
+  text-align: center;
 }
 </style>

@@ -8,7 +8,11 @@ const emit = defineEmits(["checkLogin", "registerUser"]);
 <template>
   <v-container class="d-flex flex-column align-center border">
     <v-icon icon="mdi-home" />
-    <strong>Bem-vindo! Como você se chama?</strong>
+    <strong
+      >Bem-vindo o SRC, o seu sistema de recomendação de cidades para
+      viver!</strong
+    ><br />
+    <strong>Como você se chama?</strong>
     <v-text-field
       class="align-self-center mt-3 w-100 d-md-none"
       label="Nome"

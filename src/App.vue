@@ -1,14 +1,17 @@
 <template>
   <v-app>
-    <VAppBar color="light-blue-darken-4">
+    <!-- <VAppBar color="light-blue-darken-4">
       <VAppBarTitle>SRC - Sistema de Recomendação de Cidades</VAppBarTitle>
-    </VAppBar>
+    </VAppBar> -->
     <v-main>
       <!-- <HelloWorld /> -->
-      <VContainer class="border-lg elevation-3" color="light-blue-darken-2">
+      <VContainer class="elevation-1 w-75 mt-5" color="light-blue-darken-2">
+        <VAppBar color="light-blue-darken-4">
+          <VAppBarTitle>SRC - Sistema de Recomendação de Cidades</VAppBarTitle>
+        </VAppBar>
         <LoginForm
           v-if="!autenticado"
-          class="w-100"
+          class="w-100 mb-5"
           @check-login="validarLogin"
           @register-user="() => (registrandoUsuario = true)"
         />

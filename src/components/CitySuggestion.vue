@@ -10,7 +10,7 @@ const indiceAtual = ref(0);
 </script>
 
 <template>
-  <v-container class="d-flex flex-column">
+  <v-container class="d-flex flex-column w-100">
     <div></div>
     <div>
       <CityCard :city-obj="props.cidades[indiceAtual]" />
