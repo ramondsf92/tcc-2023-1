@@ -10,12 +10,16 @@ const indiceAtual = ref(0);
 </script>
 
 <template>
-  <v-container class="d-flex flex-column w-100">
-    <div></div>
+  <v-container class="d-flex flex-column align-items-center w-100">
+    <p class="subtitle">
+      Pronto! Aqui estão algumas cidades que podem lhe interessar! Navegue entre
+      as cidades através dos botões <b>SUGESTÃO ANTERIOR</b> e
+      <b>PRÓXIMA SUGESTÃO</b>.
+    </p>
     <div>
-      <CityCard :city-obj="props.cidades[indiceAtual]" />
+      <CityCard class="mt-3" :city-obj="props.cidades[indiceAtual]" />
     </div>
-    <div class="align-self-center" id="city-links">
+    <div class="align-self-center mt-5" id="city-links">
       <v-btn href="https://www.trivago.com.br/" target="_blank">
         Reserve sua acomodação
       </v-btn>
@@ -47,5 +51,10 @@ const indiceAtual = ref(0);
   display: flex;
   flex-direction: column;
   place-items: center;
+}
+
+.subtitle {
+  font-size: larger;
+  text-align: justify;
 }
 </style>

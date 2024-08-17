@@ -5,7 +5,10 @@
     </VAppBar> -->
     <v-main>
       <!-- <HelloWorld /> -->
-      <VContainer class="elevation-1 w-75 mt-5" color="light-blue-darken-2">
+      <VContainer
+        class="elevation-1 w-75 mt-5 roboto-condensed-bold"
+        color="light-blue-darken-2"
+      >
         <VAppBar color="light-blue-darken-4">
           <VAppBarTitle>SRC - Sistema de Recomendação de Cidades</VAppBarTitle>
         </VAppBar>
@@ -40,3 +43,12 @@ function validarLogin(user) {
   autenticado.value = true;
 }
 </script>
+
+<style>
+.roboto-condensed-bold {
+  font-family: "Roboto Condensed", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 500;
+  font-style: bold;
+}
+</style>
