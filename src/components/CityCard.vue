@@ -38,7 +38,8 @@ const imgExibida = ref(0);
         {{ props.cityObj.name.substring(props.cityObj.name.indexOf("-") + 2)
         }}<br />
         Número de Habitantes: {{ props.cityObj.population }}<br />
-        IDH: {{ props.cityObj.idh }}
+        IDH: {{ props.cityObj.idh }}<br />
+        Custo de vida médio: R${{ props.cityObj.avg_coust_living_price }}
       </div>
       <div id="city-info-right" class="mb-2">
         Quantidade de empresas:
@@ -46,6 +47,7 @@ const imgExibida = ref(0);
         Densidade demográfica: {{ props.cityObj.demographic_density }}<br />
         Taxa de Segurança: {{ props.cityObj.securityRate }}<br />
         Taxa de Escolaridade: {{ props.cityObj.scholarity_rate }}<br />
+        Índice de lazer: {{ props.cityObj.recreation_rate }}
       </div>
     </div>
     <div id="city-list-business-type" class="mb-2 align-self-center">
